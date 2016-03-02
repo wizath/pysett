@@ -2,8 +2,8 @@ Pysett - tiny library for parsing the *.xml setting file into python data model
 
 # usage
 * xml-structure is super simple
-<tab> tag - starts each category
-<option> tag - represents single option
+* <tab> tag - starts each category
+* <option> tag - represents single option
 
 # example
 xml file :
