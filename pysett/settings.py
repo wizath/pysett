@@ -15,7 +15,7 @@ class Settings(object):
             self._root = self._xml.getroot()
             self._parseContent(self._root)
         except (IOError, etree.ParseError):
-            raise IOError('Invalid file specified. XML only.')
+            raise IOError('Invalid file specified. XML only. {}')
 
     def _parseContent(self, root):
         for tab in root:
@@ -39,6 +39,7 @@ class Settings(object):
         return item.get('default')
 
     def _readType(self, item):
+        """returns item type retreived from xml-tree. In case of missing returns string format"""
         _type = item.get('type')
         if _type:
             return _type
@@ -46,6 +47,8 @@ class Settings(object):
             return 'str'
 
     def _parseValue(self, item, value=None):
+        """return value with proper type parsing from raw string from xml-tree. If type is
+           not specified returns raw string value."""
         vtype = self._readType(item)
         if value is None:
             value = self._readValue(item)
@@ -55,7 +58,7 @@ class Settings(object):
                 return int(value)
             elif vtype == 'str':
                 return str(value)
-            elif vtype == 'bool':
+            elif vtype == 'bool' or vtype == 'list' or vtype == 'dict':
                 return ast.literal_eval(value)
             else:
                 return value

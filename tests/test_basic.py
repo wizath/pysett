@@ -15,6 +15,8 @@ class BasicTest(unittest.TestCase):
                 <option name="text size" type="int" value="1" default="80"/>
                 <option name="font" type="str" value="nop" default="Arial"/>
                 <option name="enable" type="bool" value="True" default="True"/>
+                <option name="list_test" type="list" value="[1,2,3,4]" default="[1]"/>
+                <option name="dict_test" type="list" value="{'1' : 1, '2' : 2}" default="{'3' : 3}"/>
             </tab>
         </settings>'''
 
@@ -63,6 +65,8 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(self.obj.general.text_size, 1)
         self.assertEqual(self.obj.general.font, "nop")
         self.assertEqual(self.obj.general.enable, True)
+        self.assertEqual(self.obj.general.list_test, [1,2,3,4])
+        self.assertEqual(self.obj.general.dict_test, {'1': 1, '2': 2})
 
     def testReloadFunctionWithoutSaving(self):
         rootfile = et.fromstring(self.xmlstring)
@@ -78,6 +82,8 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(self.obj.general.text_size, 1)
         self.assertEqual(self.obj.general.font, "nop")
         self.assertEqual(self.obj.general.enable, True)
+        self.assertEqual(self.obj.general.list_test, [1,2,3,4])
+        self.assertEqual(self.obj.general.dict_test, {'1': 1, '2': 2})
 
     def testSaveContentFunction(self):
         rootfile = et.fromstring(self.xmlstring)
@@ -99,6 +105,8 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(self.obj.general.text_size, 20)
         self.assertEqual(self.obj.general.font, "changed")
         self.assertEqual(self.obj.general.enable, False)
+        self.assertEqual(self.obj.general.list_test, [1,2,3,4])
+        self.assertEqual(self.obj.general.dict_test, {'1': 1, '2': 2})
 
     def testSetDefaultsFunction(self):
         rootfile = et.fromstring(self.xmlstring)
@@ -114,6 +122,8 @@ class BasicTest(unittest.TestCase):
         self.assertEqual(self.obj.general.text_size, 80)
         self.assertEqual(self.obj.general.font, "Arial")
         self.assertEqual(self.obj.general.enable, True)
+        self.assertEqual(self.obj.general.list_test, [1])
+        self.assertEqual(self.obj.general.dict_test, {'3': 3})
 
 if __name__ == '__main__':
     unittest.main()
